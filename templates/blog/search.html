@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+{% if post %}
+    {% for i in post  %}
+ <h3 class= "text-warning" style="letter-spacing: 2px;">Search Term - {{keyword}}</h3>
+  <div class="row mb-2">
+   
+    
+    <div class="col-md-6">
+      <div class="card border-0" >
+        <div class="card-body">
+          <h3><a href="{% url 'single_post' i.pk %}" class="text-dark">{{i.title}}</a></h3>
+          <small class="mb-1 text-muted">{{i.created_at | timesince}} ago | {{i.author}}</small>
+          <p class="card-text">{{i.short_desc | truncatewords:20}}</p>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
+    {% else %}
+    <h3>No Post Found</h3>
+    {% endif %}
+   
+  </div>
+
+  
+  
+
+</div>
+
+
+{% endblock %}

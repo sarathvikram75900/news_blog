@@ -1,0 +1,105 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">{{post.title}}</h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Posted on {{post.created_at}}, by {{post.author}}</div>
+                    <!-- Post category-->
+                    <a class="badge bg-warning text-decoration-none text-light" href="#!">{{post.category}}</a>
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded" src="{{post.featured_image.url}}" alt="..." /></figure>
+                <!-- Post content-->
+                <section class="mb-5">
+                    <p class="fs-5 mb-4">{{post.short_desc}}</p>
+                    <p class="fs-5 mb-4">{{post.blog_body}}</p>
+
+
+                    <!-- comments -->
+
+                    <h4>comments ({{comments_count}})</h4>
+                    {% if comments %}
+                    {% for i in comments %}
+
+                    <div class="card">
+                        <div class="card-body">
+
+                          <p class="card-text mb-0">{{i}}</p>  
+                          <span>
+                            <small>By {{i.user}}</small>
+                            <small>| {{i.created_at | timesince}} ago</small>
+                          </span>
+                        </div>
+
+                    </div>
+                    
+
+
+                    {% endfor %}
+                    {% else %}
+                    No comments yet
+                    {% endif %}
+                    <br>
+                    <div class="form-group">
+                        {% if user.is_authenticated %}
+                        <form action=""  method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+
+                                <textarea name="comment" placeholder="Write your comment" class="form-control"></textarea>
+                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                            </div>
+
+                        </form>
+                        {% else %}
+                        <p>please <span><a href="{% url 'login' %}">login</a></span> to write a comment</p>
+                        {% endif %}
+                    </div>
+                    </section>
+            </article>
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            
+            <!-- Categories widget-->
+            <div class="card mb-4 p-3">
+                <h4 class="font-italic">Categories</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                {% for i in categories %}
+                                <li><a href="{% url 'get_post_by_category' i.pk %}">{{i}}</a></li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Side widget-->
+            <div class="card mb-4 p-3">
+                <h4 class="font-italic">Follow Us</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

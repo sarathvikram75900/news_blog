@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Employee Details</h1>
+
+    <h2>Name : {{employee.first_name}} {{employee.last_name}}</h2>
+    <h3>Designation : {{employee.designation}}</h3>
+    <h3>Email : {{employee.email_add}}</h3>
+    <h3>Phone : {{employee.phone_num}}</h3>
+    <img src="{{employee.phote.url}}" alt="" height="200px"><br>
+    <a href="{% url 'home' %}">Back</a>
+
+</body>
+</html>

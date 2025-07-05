@@ -1,0 +1,77 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+
+    {% for i in featured_post %}
+    {% if forloop.first %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background-image: url({{i.featured_image.url}});background-blend-mode: overlay;background-size:cover;">
+    <div class="col-md-8 px-0">
+      <h1 class="display-4 font-italic">{{i.title}}</h1>
+      <p class="lead my-3">{{i.short_desc}}</p>
+      <p class="lead mb-0"><a href="{% url 'single_post' i.pk %}" class="text-white font-weight-bold">Continue reading...</a></p>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+ <!--Featured Posts  -->
+
+ <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Featured Posts</h3>
+  <div class="row mb-2">
+    {% for i in featured_post %}
+    {% if not forloop.first %}
+    <div class="col-md-6">
+      <div class="card border-0" >
+        <div class="card-body">
+          <h3><a href="{% url 'single_post' i.pk %}" class="text-dark">{{i.title}}</a></h3>
+          <small class="mb-1 text-muted">{{i.created_at | timesince}} ago | {{i.author}}</small>
+          <p class="card-text">{{i.short_desc | truncatewords:20}}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+   
+  </div>
+
+  <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Recent Articles</h3>
+  <main role="main" class="container p-0">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        {% for i in non_featured_post %}
+        <div class="card border-0" >
+          <div class="card-body">
+            <h3><a href="{% url 'single_post' i.pk %}" class="text-dark">{{i.title}}</a></h3>
+            <small class="mb-1 text-muted">{{i.created_at | timesince}} ago | {{i.author}}</small>
+            <p class="card-text">{{i.short_desc | truncatewords:10}}</p>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- /.blog-post -->
+
+      </div>
+      <!-- /.blog-main -->
+
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-3 mb-3 bg-light rounded">
+          <h4 class="font-italic">About</h4>
+          <p class="mb-0">Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.</p>
+        </div>
+
+        <div class="p-3">
+          <h4 class="font-italic">Follow Us</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ol>
+        </div>
+      </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+  </main><!-- /.container -->
+
+</div>
+
+{% endblock %}

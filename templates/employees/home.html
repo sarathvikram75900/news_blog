@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Employee List</h2>
+    {% if employees %}
+    <table border="1" style="border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        {% for i in employees %}
+        <tbody>
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                
+                <td>{{i.designation}}</td>
+                <td>{{i.email_add}}</td>
+                <td>{{i.phone_num}}</td>
+                <td>{{i.created_at}}</td>
+                <td>{{i.updated_at}}</td>
+                <td><a href="{% url 'employee_details' i.pk %}">View Details</a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>No Records Found</h3>
+    {% endif %}
+</body>
+</html>
